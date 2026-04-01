@@ -64,11 +64,17 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App container">
+        <div className="app-header">
+          <h1 className="app-title">✨ Task Master</h1>
+          <p className="app-subtitle">Organize your day with style</p>
+        </div>
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-12 col-sm-8 col-md-8 offset-md-2">
-              <h1>My Todo List Game Update</h1>
               <div className="todo-app">
+                <div className="app-stats">
+                  <span className="stat-badge">{this.state.todos.length} Tasks</span>
+                </div>
                 <AddTodo handleAddTodo={this.handleAddTodo} />
                 <TodoList
                   todos={this.state.todos}
