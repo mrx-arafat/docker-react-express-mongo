@@ -1,0 +1,14 @@
+// Override default variables before the import
+$body-bg: #0c0015;
+$body-color: #f0f0f0;
+$primary: #8b5cf6;
+$danger: #ef4444;
+$success: #10b981;
+$font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+.cursor-pointer {
+  cursor: pointer;
+}

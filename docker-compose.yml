@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:80"   # host 3000 → container 80 (nginx serves React)
+    environment:
+      - NODE_ENV=production
+    restart: always
+    networks:
+      - react-express
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "5000:5000"   # expose backend port for internal Docker networking or Nginx proxy
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/mydb
+    restart: always
+    networks:
+      - express-mongo
+      - react-express
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.2.0
+    container_name: mongo
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - express-mongo
+
+networks:
+  react-express:
+  express-mongo:
+
+volumes:
+  mongo_data:

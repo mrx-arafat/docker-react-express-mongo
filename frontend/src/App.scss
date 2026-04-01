@@ -1,0 +1,347 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  padding: 40px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  h1 {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+    letter-spacing: -0.02em;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #8b5cf6, #ec4899);
+      border-radius: 2px;
+      margin: 12px auto 0;
+    }
+  }
+}
+
+// === Main Card (Glassmorphism) ===
+.todo-app {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+// === Add Todo Form ===
+.new-todo {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 14px !important;
+    color: #f0f0f0 !important;
+    padding: 14px 20px !important;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: rgba(139, 92, 246, 0.5) !important;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15),
+                  0 2px 20px rgba(139, 92, 246, 0.2) !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+    }
+  }
+
+  button {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 14px 28px !important;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: white !important;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 25px rgba(139, 92, 246, 0.45);
+      background: linear-gradient(135deg, #9b6ff6, #8b5cf6) !important;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// === Todo List ===
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// === Individual Todo Item ===
+.todo-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  // Left accent bar
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #8b5cf6, #ec4899);
+    border-radius: 4px 0 0 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(4px);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .todo-actions {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &.active {
+    background: rgba(139, 92, 246, 0.12);
+    border-color: rgba(139, 92, 246, 0.25);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+// === Todo Display Mode ===
+.todo-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.todo-text {
+  color: #e8e8f0;
+  font-size: 1rem;
+  flex: 1;
+  text-align: left;
+  word-break: break-word;
+}
+
+// === Action Buttons Container ===
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+}
+
+// === Icon Buttons (edit, delete, save, cancel) ===
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: #a0a0b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 14px;
+  padding: 0;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.btn-edit:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+.btn-delete:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+
+.btn-save:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+.btn-cancel:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+// === Todo Edit Mode ===
+.todo-edit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+    border-radius: 10px !important;
+    color: #f0f0f0 !important;
+    padding: 8px 14px !important;
+    font-size: 0.95rem;
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2) !important;
+      border-color: rgba(139, 92, 246, 0.5) !important;
+    }
+  }
+}
+
+// === Empty State ===
+.alert-primary {
+  background: rgba(139, 92, 246, 0.1) !important;
+  border: 1px dashed rgba(139, 92, 246, 0.25) !important;
+  color: #a0a0b0 !important;
+  border-radius: 16px !important;
+  padding: 2rem !important;
+  font-style: italic;
+}
+
+// ===========================
+// ANIMATIONS
+// ===========================
+
+// --- Todo item enter (slide in + fade) ---
+@keyframes todoSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  60% {
+    transform: translateY(4px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.todo-enter {
+  animation: todoSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+// Stagger animation for initial load
+@for $i from 1 through 20 {
+  .todo-item:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.05}s;
+  }
+}
+
+// --- Todo item exit (slide out + fade) ---
+@keyframes todoSlideOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    max-height: 80px;
+    margin-bottom: 10px;
+    padding: 16px 20px;
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(60px) scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120px) scale(0.9);
+    max-height: 0;
+    margin-bottom: 0;
+    padding: 0 20px;
+    border-color: transparent;
+  }
+}
+
+.todo-exit {
+  animation: todoSlideOut 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+  pointer-events: none;
+}
+
+// --- Container fade in ---
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.todo-app {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.App h1 {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+// --- Subtle pulse on add button ---
+@keyframes subtlePulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(139, 92, 246, 0.5);
+  }
+}
+
+.new-todo button:focus {
+  animation: subtlePulse 2s ease-in-out infinite;
+}
